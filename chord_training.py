@@ -140,3 +140,38 @@ training_chord_labels = np.zeros(training_chord_set.shape[0])
 for i in range(training_chord_set.shape[0]):
     training_chord_set[i,:] = set[i]
     training_chord_labels[i] = i
+
+##Make dictionary of chord labels
+chord_classes = {
+    '0': 'C_M_',
+    '1': 'C_M7',
+    '2': 'C_m_',
+    '3': 'C_m_7',
+    '4': 'C_o_',
+    '5': 'C_o7',
+    '6': 'C_07',
+    '7': 'C_a_',
+    '8': 'CSM_',
+    '9': 'CSM7',
+    '10': 'CSm_',
+    '11': 'CSm_7',
+    '12': 'CSo_',
+    '13': 'CSo7',
+    '14': 'CS07',
+    '15': 'CSa_',
+    '16': 'D_M_',
+    '17': 'D_M7',
+    '18': 'D_m_',
+    '19': 'D_m_7',
+    '20': 'D_o_',
+    '21': 'D_o7',
+    '22': 'D_07',
+    '23': 'D_a_',
+    '24': 'DSM_',
+    '25': 'DSM7',
+    '26': 'DSm_',
+    '27': 'DSm_7',
+    '28': 'DSo_',
+    '29': 'DSo7',
+    '30': 'DS07',
+    '31': 'DSa_',}
