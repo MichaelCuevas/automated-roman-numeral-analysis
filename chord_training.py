@@ -338,4 +338,64 @@ chord_vectors = {
     'B_07': B_07,
     'B_a_': B_a}
 
-print(chord_vectors['GSM7'])
+#Krumhansl-Schmuckler Key Vectors
+#Major Keys
+C = np.array([6.35,2.23,3.48,2.33,4.38,4.09,2.52,5.19,2.39,3.66,2.29,2.88])
+CS = np.roll(C,1)
+D = np.roll(C,2)
+DS = np.roll(C,3)
+E = np.roll(C,4)
+F = np.roll(C,5)
+FS = np.roll(C,6)
+G = np.roll(C,7)
+GS = np.roll(C,8)
+A = np.roll(C,9)
+AS = np.roll(C,10)
+B = np.roll(C,11)
+
+#Minor Keys
+c = np.array([6.33,2.68,3.52,5.38,2.60,3.53,2.54,4.75,3.98,2.69,3.34,3.17])
+cS = np.roll(c,1)
+d = np.roll(c,2)
+dS = np.roll(c,3)
+e = np.roll(c,4)
+f = np.roll(c,5)
+fS = np.roll(c,6)
+g = np.roll(c,7)
+gS = np.roll(c,8)
+a = np.roll(c,9)
+aS = np.roll(c,10)
+b = np.roll(c,11)
+
+key_set = [C,CS,D,DS,E,F,FS,G,GS,A,AS,B,c,cS,d,dS,e,f,fS,g,gS,a,aS,b]
+ks_key_set = np.zeros(shape=(24,12))
+ks_key_labels = np.zeros(ks_key_set.shape[0])
+for i in range(ks_key_set.shape[0]):
+    ks_key_set[i,:] = key_set[i]
+    ks_key_labels[i] = i
+
+key_dictionary = {
+    '0': 'C Major',
+    '1': 'C#/Db Major',
+    '2': 'D Major',
+    '3': 'D#/Eb Major',
+    '4': 'E Major',
+    '5': 'F Major',
+    '6': 'F#/Gb Major',
+    '7': 'G Major',
+    '8': 'G#/Ab Major',
+    '9': 'A Major',
+    '10': 'A#/Bb Major',
+    '11': 'B Major',
+    '12': 'c minor',
+    '13': 'c#/db minor',
+    '14': 'd minor',
+    '15': 'd#/eb minor',
+    '16': 'e minor',
+    '17': 'f minor',
+    '18': 'f#/gb minor',
+    '19': 'g minor',
+    '20': 'g#/ab minor',
+    '21': 'a minor',
+    '22': 'a#/bb minor',
+    '23': 'b minor'}
