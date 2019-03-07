@@ -164,10 +164,12 @@ for name in ChordSet:
         #chord_notes3 = np.sort(chord_notes)
         chord_notes4 = chord_map2[non_zero] 
         #chord_notes4 = np.sort(chord_notes2)
-
         # finds different possible paths for the chords
         paths = list(itertools.permutations(chord_notes3))
         paths2 = list(itertools.permutations(chord_notes4))
+        paths2.append(str(chord_notes4))
+        paths.append(str(chord_notes3))
+        print(paths)
         path = []
         path2 = []
         i=0
@@ -186,6 +188,8 @@ for name in ChordSet:
         # finds different possible paths for the chords
         paths = list(itertools.permutations(chord_notes3))
         paths2 = list(itertools.permutations(chord_notes4))
+        #paths2.append(str(chord_notes4))
+        #paths2.append(str(chord_notes3))
         path = []
         path2 = []
         #print(chord_notes2)
@@ -193,9 +197,9 @@ for name in ChordSet:
         #print(paths2)
         i=0
         for chord_notes in paths:
-            path.append(base_path + str(chord_notes[0]) + '*' + str(chord_notes[1]) + '*' + str(chord_notes[2]) + '*' + str(chord_notes[3]) + '*' + end_path)
+            path.append(base_path4 + str(chord_notes[0]) + '*' + str(chord_notes[1]) + '*' + str(chord_notes[2]) + '*' + str(chord_notes[3]) + '*' + end_path)
         for chord_notes2 in paths2:
-            path2.append(base_path + str(chord_notes2[0]) + '*' + str(chord_notes2[1]) + '*' + str(chord_notes2[2]) + '*' + str(chord_notes2[3]) + end_path)
+            path2.append(base_path4 + str(chord_notes2[0]) + '*' + str(chord_notes2[1]) + '*' + str(chord_notes2[2]) + '*' + str(chord_notes2[3]) + '*' + end_path)
             i = i+1
         
        
@@ -210,16 +214,22 @@ for name in ChordSet:
     exist = np.zeros(len(path))
     posFile2 = np.zeros(len(path2))
     exist2 = np.zeros(len(path2))
+    #print(path)
     for i in range(len(path)):
-        posFile[i] = len(glob.glob(os.path.expandvars(path[i])))
-        exist[i] = not all(posFile)
-        #print(str(glob.glob(os.path.expandvars(path[i]))))
-        #print(path)
+        posFile[i] = len(glob.glob(os.path.expandvars(path[i]))) 
+        #print(posFile[i])
+        exist[i] = posFile[i] > 0
+        if(exist[i]):
+            posFile[i] = i+1
+        else:
+            posFile[i] = 0
         posFile2[i] = len(glob.glob(os.path.expandvars(path2[i])))
-        #print(posFile2)
-        #print(posFile)
-        exist2[i] = not all(posFile2)
-
+        exist2[i] = posFile2[i] > 0
+        if(exist2[i]):
+            posFile2[i] = i+1
+        else:
+            posFile2[i] = 0
+   
     #posFile = glob.glob(os.path.expandvars(path))
     #posFile2 = glob.glob(os.path.expandvars(path2))
     #posFile3 = glob.glob(os.path.expandvars(path3))
@@ -239,9 +249,9 @@ for name in ChordSet:
     #    print(posFile3[int(len(posFile3)/2)])
     #if(exist4):
     #    print(posFile4[int(len(posFile4)/2)])
-    #print(exist)
-    #print(exist2)
-    if(not all(exist) and not all(exist2)):
+    print(exist[exist>0])
+    print(exist2[exist2>0])
+    if(not(len(exist[exist>0]) or (len(exist2[exist2>0])))):
         print(chord_notes3)
         #print(str(os.path.exists(os.path.expandvars(path))))
         #print(str(os.path.exists(os.path.expandvars(path2))))
@@ -252,6 +262,9 @@ for name in ChordSet:
         #lost_chords2 = np.concatenate((lost_chords2, chord_notes2), axis=0)
     else:
         g = g+1
+        #print(posFile)
+        posFile = np.nonzero(posFile)
+        #print(path[posFile])
 print('failed to find: ' + str(k) + ' chords')
 print('able to find: ' + str(g) + ' chords')
 #for numtimes in range(int((np.shape(lost_chords)[0])/3)):
