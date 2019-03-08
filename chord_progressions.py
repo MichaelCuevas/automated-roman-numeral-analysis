@@ -146,7 +146,7 @@ chord_map2 = np.array(["C","Db","D","Eb","E","F","Gb","G","Ab","A","Bb","B"])
 #base_path = "./UMAPianoDB-Poly-3/chords/UMAPiano-DB-"
 #base_path = 'C:\\Users\\Michael Cuevas\\Desktop\\automated-roman-numeral-analysis\\UMAPiano-DB-Poly-3\\chords\\UMAPiano-DB-'
 
-
+ChordSet = [A_m,E_m7,A_m]
 i=0
 j=0
 k=0
@@ -214,19 +214,23 @@ for name in ChordSet:
     exist = np.zeros(len(path))
     posFile2 = np.zeros(len(path2))
     exist2 = np.zeros(len(path2))
+    existingPath = []
+    existingPath2 = []
     #print(path)
     for i in range(len(path)):
         posFile[i] = len(glob.glob(os.path.expandvars(path[i]))) 
         #print(posFile[i])
         exist[i] = posFile[i] > 0
         if(exist[i]):
-            posFile[i] = i+1
+            posFile[i] = 1
+            existingPath.append(glob.glob(os.path.expandvars(path[i])))
         else:
             posFile[i] = 0
         posFile2[i] = len(glob.glob(os.path.expandvars(path2[i])))
         exist2[i] = posFile2[i] > 0
         if(exist2[i]):
-            posFile2[i] = i+1
+            posFile2[i] = 1
+            existingPath2.append(glob.glob(os.path.expandvars(path2[i])))
         else:
             posFile2[i] = 0
    
@@ -249,8 +253,8 @@ for name in ChordSet:
     #    print(posFile3[int(len(posFile3)/2)])
     #if(exist4):
     #    print(posFile4[int(len(posFile4)/2)])
-    print(exist[exist>0])
-    print(exist2[exist2>0])
+    #print(exist[exist>0])
+    #print(exist2[exist2>0])
     if(not(len(exist[exist>0]) or (len(exist2[exist2>0])))):
         print(chord_notes3)
         #print(str(os.path.exists(os.path.expandvars(path))))
@@ -262,9 +266,8 @@ for name in ChordSet:
         #lost_chords2 = np.concatenate((lost_chords2, chord_notes2), axis=0)
     else:
         g = g+1
-        #print(posFile)
-        posFile = np.nonzero(posFile)
-        #print(path[posFile])
+        print(existingPath)
+        print(existingPath2)
 print('failed to find: ' + str(k) + ' chords')
 print('able to find: ' + str(g) + ' chords')
 #for numtimes in range(int((np.shape(lost_chords)[0])/3)):
